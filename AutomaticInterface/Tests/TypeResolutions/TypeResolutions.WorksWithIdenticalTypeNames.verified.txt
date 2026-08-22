@@ -11,10 +11,10 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IModelManager
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.ModelManager.GetModel1()" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.ModelManager.GetModel1~AutomaticInterfaceExample.Models1.Model" />
         global::AutomaticInterfaceExample.Models1.Model GetModel1();
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.ModelManager.GetModel2()" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.ModelManager.GetModel2~AutomaticInterfaceExample.Models2.Model" />
         global::AutomaticInterfaceExample.Models2.Model GetModel2();
         
     }

@@ -15,7 +15,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.GetFinalDocumentsByIDFails(string, string, bool, bool?, System.Threading.CancellationToken)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.GetFinalDocumentsByIDFails(System.String,System.String,System.Boolean,System.Nullable{System.Boolean},System.Threading.CancellationToken)~System.Threading.Tasks.Task{System.IO.Stream}" />
         global::System.Threading.Tasks.Task<global::System.IO.Stream?> GetFinalDocumentsByIDFails(string agreementID, string docType, bool amt = false, bool? attachSupportingDocuments = true, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
         
     }

@@ -15,7 +15,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.NullableProperty" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.DemoClass.NullableProperty" />
         global::System.Threading.Tasks.Task<string?> NullableProperty { get; set; }
         
     }

@@ -404,4 +404,41 @@ public class Misc
             """;
         await Verify(Infrastructure.GenerateCode(code));
     }
+
+    [Fact]
+    public async Task CorrectInheritDocForTupleParameters()
+    {
+        const string code = """
+
+            using DotnetAutomaticInterface;
+
+            namespace AutomaticInterfaceExample;
+
+            public class Class1;
+            public class Class2;
+
+            /// <summary>
+            ///     Cls comment ...
+            /// </summary>
+            /// <param name="clsParam">param</param>
+            [GenerateAutomaticInterface]
+            public class DemoClass((Class1, Class2) clsParam)
+            {
+                /// <summary>
+                ///     Some Comment 1 ...
+                /// </summary>
+                /// <param name="param">This is the param</param>
+                public void Method((Class1, Class2) param) { }
+                
+                /// <summary>
+                ///     Some Comment 2 ...
+                /// </summary>
+                /// <param name="timespan">param</param>
+                public void Method2((DateTime? from, DateTime? to) timespan) { }
+            }
+
+            """;
+
+        await Verify(Infrastructure.GenerateCode(code));
+    }
 }
