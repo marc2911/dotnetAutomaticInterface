@@ -26,9 +26,7 @@ public static class Infrastructure
         var sourceDiagnostics = compilation.GetDiagnostics();
         var sourceErrors = sourceDiagnostics
             .Where(d => d.Severity == DiagnosticSeverity.Error)
-            .Where(x => x.Id != "CS0246") // missing references are ok
-            .ToList();
-
+            .Where(x => x.Id != "CS0246"); // missing references are ok;
         Assert.Empty(sourceErrors);
 
         var generator = new AutomaticInterfaceGenerator();
@@ -41,8 +39,7 @@ public static class Infrastructure
                 out var diagnostics
             );
 
-        var errors = diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error).ToList();
-
+        var errors = diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error);
         Assert.Empty(errors);
 
         return outputCompilation.SyntaxTrees.Skip(1).LastOrDefault()?.ToString();
