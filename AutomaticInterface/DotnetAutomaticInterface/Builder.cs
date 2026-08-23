@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -96,16 +97,19 @@ public static class Builder
 
     private static void AddMethodsToInterface(List<ISymbol> members, InterfaceBuilder codeGenerator)
     {
-        members
-            .Where(x => x.Kind == SymbolKind.Method)
-            .OfType<IMethodSymbol>()
-            .Where(x => x.MethodKind == MethodKind.Ordinary)
-            .Where(x => x.ContainingType.Name != nameof(Object))
-            .Where(x => !HasIgnoreAttribute(x))
-            .GroupBy(x => x.ToDisplayString(FullyQualifiedDisplayFormatForGrouping))
-            .Select(g => g.First())
-            .ToList()
-            .ForEach(method => AddMethod(codeGenerator, method));
+        foreach (
+            var method in members
+                .Where(x => x.Kind == SymbolKind.Method)
+                .OfType<IMethodSymbol>()
+                .Where(x => x.MethodKind == MethodKind.Ordinary)
+                .Where(x => x.ContainingType.Name != nameof(Object))
+                .Where(x => !HasIgnoreAttribute(x))
+                .GroupBy(x => x.ToDisplayString(FullyQualifiedDisplayFormatForGrouping))
+                .Select(g => g.First())
+        )
+        {
+            AddMethod(codeGenerator, method);
+        }
     }
 
     private static void AddMethod(InterfaceBuilder codeGenerator, IMethodSymbol method)
@@ -116,10 +120,15 @@ public static class Builder
         ActivateNullableIfNeeded(codeGenerator, method);
 
         var paramResult = new HashSet<string>();
-        method
-            .Parameters.Select(p => GetParameterDisplayString(p, codeGenerator.HasNullable))
-            .ToList()
-            .ForEach(x => paramResult.Add(x));
+
+        foreach (
+            var p in method.Parameters.Select(p =>
+                GetParameterDisplayString(p, codeGenerator.HasNullable)
+            )
+        )
+        {
+            paramResult.Add(p);
+        }
 
         var typedArgs = method
             .TypeParameters.Select(arg =>
@@ -213,25 +222,25 @@ public static class Builder
 
     private static void AddEventsToInterface(List<ISymbol> members, InterfaceBuilder codeGenerator)
     {
-        members
-            .Where(x => x.Kind == SymbolKind.Event)
-            .OfType<IEventSymbol>()
-            .GroupBy(x => x.ToDisplayString(FullyQualifiedDisplayFormatForGrouping))
-            .Select(g => g.First())
-            .ToList()
-            .ForEach(evt =>
-            {
-                var type = evt.Type;
-                var name = evt.Name;
+        foreach (
+            var evt in members
+                .Where(x => x.Kind == SymbolKind.Event)
+                .OfType<IEventSymbol>()
+                .GroupBy(x => x.ToDisplayString(FullyQualifiedDisplayFormatForGrouping))
+                .Select(g => g.First())
+        )
+        {
+            var type = evt.Type;
+            var name = evt.Name;
 
-                ActivateNullableIfNeeded(codeGenerator, type);
+            ActivateNullableIfNeeded(codeGenerator, type);
 
-                codeGenerator.AddEventToInterface(
-                    name,
-                    type.ToDisplayString(FullyQualifiedDisplayFormat),
-                    InheritDoc(evt)
-                );
-            });
+            codeGenerator.AddEventToInterface(
+                name,
+                type.ToDisplayString(FullyQualifiedDisplayFormat),
+                InheritDoc(evt)
+            );
+        }
     }
 
     private static void AddPropertiesToInterface(
@@ -239,33 +248,33 @@ public static class Builder
         InterfaceBuilder interfaceGenerator
     )
     {
-        members
-            .Where(x => x.Kind == SymbolKind.Property)
-            .OfType<IPropertySymbol>()
-            .Where(x => !x.IsIndexer)
-            .GroupBy(x => x.Name)
-            .Select(g => g.First())
-            .ToList()
-            .ForEach(prop =>
-            {
-                var type = prop.Type;
+        foreach (
+            var prop in members
+                .Where(x => x.Kind == SymbolKind.Property)
+                .OfType<IPropertySymbol>()
+                .Where(x => !x.IsIndexer)
+                .GroupBy(x => x.Name)
+                .Select(g => g.First())
+        )
+        {
+            var type = prop.Type;
 
-                var name = prop.Name;
-                var hasGet = prop.GetMethod?.DeclaredAccessibility == Accessibility.Public;
-                var hasSet = GetSetKind(prop.SetMethod);
-                var isRef = prop.ReturnsByRef;
+            var name = prop.Name;
+            var hasGet = prop.GetMethod?.DeclaredAccessibility == Accessibility.Public;
+            var hasSet = GetSetKind(prop.SetMethod);
+            var isRef = prop.ReturnsByRef;
 
-                ActivateNullableIfNeeded(interfaceGenerator, type);
+            ActivateNullableIfNeeded(interfaceGenerator, type);
 
-                interfaceGenerator.AddPropertyToInterface(
-                    name,
-                    type.ToDisplayString(FullyQualifiedDisplayFormat),
-                    hasGet,
-                    hasSet,
-                    isRef,
-                    InheritDoc(prop)
-                );
-            });
+            interfaceGenerator.AddPropertyToInterface(
+                name,
+                type.ToDisplayString(FullyQualifiedDisplayFormat),
+                hasGet,
+                hasSet,
+                isRef,
+                InheritDoc(prop)
+            );
+        }
     }
 
     private static PropertySetKind GetSetKind(IMethodSymbol? setMethodSymbol)
