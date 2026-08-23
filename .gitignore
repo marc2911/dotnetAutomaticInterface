@@ -5,6 +5,7 @@ project.lock.json
 .DS_Store
 *.pyc
 nupkg/
+AutomaticInterface/local_nuget_exporter/local_nuget_feed/
 
 # Visual Studio Code
 .vscode

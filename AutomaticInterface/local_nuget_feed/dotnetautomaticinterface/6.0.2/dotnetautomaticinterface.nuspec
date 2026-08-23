@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DotnetAutomaticInterface</id>
+    <version>6.0.2</version>
+    <authors>DotnetAutomaticInterface</authors>
+    <developmentDependency>true</developmentDependency>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/ChristianSauer/dotnetAutomaticInterface</projectUrl>
+    <description>Source Generator to create an Interface from a class definition</description>
+    <releaseNotes>First release after fork, identical to AutomaticInterface 5.2.7</releaseNotes>
+    <copyright>(c) codecentric</copyright>
+    <tags>interface class Source Generator</tags>
+    <repository type="git" url="https://github.com/ChristianSauer/dotnetAutomaticInterface.git" commit="3727a23d08445aa5f489f173147ad4ce0fa74200" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>

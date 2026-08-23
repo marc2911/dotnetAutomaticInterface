@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;DebugGenerator</Configurations>
+    <SourceGenerator_EnableLogging>True</SourceGenerator_EnableLogging>
+    <SourceGenerator_EnableDebug>True</SourceGenerator_EnableDebug>
+    <SourceGenerator_DetailedLog>True</SourceGenerator_DetailedLog>
+    <SourceGenerator_IntellisenseFix>True</SourceGenerator_IntellisenseFix>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="logs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotnetAutomaticInterface" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
