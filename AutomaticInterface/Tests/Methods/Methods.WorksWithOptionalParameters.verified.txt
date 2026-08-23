@@ -11,7 +11,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.TryStartTransaction(string, string, int, bool)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.TryStartTransaction(System.String,System.String,System.Int32,System.Boolean)~System.Boolean" />
         bool TryStartTransaction(string file = "", string member = "", int line = 0, bool notify = true);
         
     }

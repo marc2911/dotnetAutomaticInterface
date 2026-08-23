@@ -11,7 +11,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AnEvent" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.AnEvent" />
         event global::System.EventHandler AnEvent;
         
     }

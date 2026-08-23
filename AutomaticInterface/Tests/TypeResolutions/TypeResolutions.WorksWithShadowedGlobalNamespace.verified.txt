@@ -11,7 +11,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.GetTask()" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.GetTask~System.Threading.Tasks.Task" />
         global::System.Threading.Tasks.Task GetTask();
         
     }

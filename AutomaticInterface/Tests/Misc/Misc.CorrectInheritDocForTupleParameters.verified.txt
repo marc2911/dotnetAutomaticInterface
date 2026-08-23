@@ -9,11 +9,18 @@
 #nullable enable
 namespace AutomaticInterfaceExample
 {
+    /// <summary>
+    ///     Cls comment ...
+    /// </summary>
+    /// <param name="clsParam">param</param>
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(AutomaticInterfaceExample.DemoClass,System.String)~System.String" />
-        string AMethod(global::AutomaticInterfaceExample.DemoClass? x, string y);
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.Method(System.ValueTuple{AutomaticInterfaceExample.Class1,AutomaticInterfaceExample.Class2})" />
+        void Method((global::AutomaticInterfaceExample.Class1, global::AutomaticInterfaceExample.Class2) param);
+        
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.Method2(System.ValueTuple{System.Nullable{DateTime},System.Nullable{DateTime}})" />
+        void Method2((DateTime? from, DateTime? to) timespan);
         
     }
 }

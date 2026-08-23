@@ -15,7 +15,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ShapeChangedNullable" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.ShapeChangedNullable" />
         event global::System.EventHandler<string?> ShapeChangedNullable;
         
     }

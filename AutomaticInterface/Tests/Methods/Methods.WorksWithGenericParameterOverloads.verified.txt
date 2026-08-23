@@ -11,10 +11,10 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AMethod(Func{Task{int}})" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(Func{Task{System.Int32}})" />
         void AMethod(Func<Task<int>> getValue);
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AMethod(Func{Task{float}})" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(Func{Task{System.Single}})" />
         void AMethod(Func<Task<float>> getValue);
         
     }

@@ -12,7 +12,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AMethod(AutomaticInterfaceExample.DemoClass?, string)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(AutomaticInterfaceExample.DemoClass,System.String)~System.String" />
         string AMethod(global::AutomaticInterfaceExample.DemoClass? x, string y);
         
     }

@@ -12,7 +12,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.TryStartTransaction(int?, int, string, Func{int, int})" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.TryStartTransaction(System.Nullable{System.Int32},System.Int32,System.String,Func{System.Int32,System.Int32})~System.Boolean" />
         bool TryStartTransaction(int? param, int param2 = 0, string? data = null, Func<int, int>? func = null);
         
     }

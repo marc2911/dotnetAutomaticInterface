@@ -11,7 +11,7 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface ISecondClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.SecondClass.AProperty" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.SecondClass.AProperty" />
         int AProperty { get; set; }
         
     }

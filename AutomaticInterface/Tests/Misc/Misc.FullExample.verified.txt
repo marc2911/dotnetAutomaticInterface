@@ -14,16 +14,16 @@ namespace AutomaticInterfaceExample
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.Hello" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.DemoClass.Hello" />
         string Hello { get; set; }
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.OnlyGet" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.DemoClass.OnlyGet" />
         string OnlyGet { get; }
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AMethod(string, string)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(System.String,System.String)~System.String" />
         string AMethod(string x, string y);
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ShapeChanged" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.ShapeChanged" />
         event global::System.EventHandler ShapeChanged;
         
     }

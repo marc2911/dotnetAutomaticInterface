@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,8 +9,25 @@ namespace DotnetAutomaticInterface;
 
 public static class Builder
 {
-    private static string InheritDoc(ISymbol source) =>
-        $"/// <inheritdoc cref=\"{source.ToDisplayString().Replace('<', '{').Replace('>', '}').Replace("params ", "")}\" />"; // we use inherit doc because that should be able to fetch documentation from base classes.
+    /// <summary>
+    /// Generates inheritdoc with canonical cref reference declaration.
+    /// </summary>
+    /// <param name="source">The symbol to annotate</param>
+    /// <returns>
+    /// <code>
+    /// /// &lt;inheritdoc cref="SomeSymbol" /&gt;
+    /// </code>
+    /// </returns>
+    private static string InheritDoc(ISymbol source)
+    {
+        var declarationId = DocumentationCommentId.CreateDeclarationId(source);
+        if (!string.IsNullOrWhiteSpace(declarationId))
+            return $"/// <inheritdoc cref=\"{declarationId}\" />";
+
+        // old probably hacky fallback ...
+        // we use inherit doc because that should be able to fetch documentation from base classes.
+        return $"/// <inheritdoc cref=\"{source.ToDisplayString().Replace('<', '{').Replace('>', '}').Replace("params ", "")}\" />";
+    }
 
     private static readonly SymbolDisplayFormat FullyQualifiedDisplayFormat = new(
         genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
@@ -206,6 +222,7 @@ public static class Builder
                 .Visit(param.DeclaringSyntaxReferences.First().GetSyntax())
                 .ToFullString();
         }
+
         return param.ToDisplayString(FullyQualifiedDisplayFormat);
     }
 
