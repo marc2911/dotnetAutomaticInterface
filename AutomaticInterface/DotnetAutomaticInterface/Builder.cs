@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -41,11 +40,13 @@ public static class Builder
         miscellaneousOptions: FullyQualifiedDisplayFormat.MiscellaneousOptions
     );
 
-    public static string BuildInterfaceFor(ITypeSymbol typeSymbol)
+    public static string BuildInterfaceFor(EquatableModel equatableModel)
     {
+        var typeSymbol = equatableModel.TypeSymbol;
+        var nodeSyntax = equatableModel.ClassSyntax;
+
         if (
-            typeSymbol.DeclaringSyntaxReferences.First().GetSyntax()
-                is not ClassDeclarationSyntax classSyntax
+            nodeSyntax is not ClassDeclarationSyntax classSyntax
             || typeSymbol is not INamedTypeSymbol namedTypeSymbol
         )
         {
@@ -206,6 +207,7 @@ public static class Builder
                 .Visit(param.DeclaringSyntaxReferences.First().GetSyntax())
                 .ToFullString();
         }
+
         return param.ToDisplayString(FullyQualifiedDisplayFormat);
     }
 
