@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>DotnetAutomaticInterface</id>
-    <version>6.0.2</version>
+    <version>6.0.2-local</version>
     <authors>DotnetAutomaticInterface</authors>
     <developmentDependency>true</developmentDependency>
     <license type="expression">MIT</license>
@@ -13,7 +13,7 @@
     <releaseNotes>First release after fork, identical to AutomaticInterface 5.2.7</releaseNotes>
     <copyright>(c) codecentric</copyright>
     <tags>interface class Source Generator</tags>
-    <repository type="git" url="https://github.com/ChristianSauer/dotnetAutomaticInterface.git" commit="3727a23d08445aa5f489f173147ad4ce0fa74200" />
+    <repository type="git" url="https://github.com/ChristianSauer/dotnetAutomaticInterface.git" commit="5f91efa85d3a665676c214a2f69fb51a3c138f87" />
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>

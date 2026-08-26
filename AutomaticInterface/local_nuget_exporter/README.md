@@ -22,7 +22,7 @@ The script will:
 
 - run `dotnet pack` in Release configuration
 - run `nuget add`
-- create a local pkg feed at `./local_nuget_feed` next to the script
+- create a local pkg feed at `./local_nuget_feed` next to the script with a ``local version suffix``
 
 If `nuget.exe` is not installed, the script will try to install it via `winget`.
 
