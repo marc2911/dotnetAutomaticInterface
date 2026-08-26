@@ -13,6 +13,9 @@ Write-Host "Output feed root: $Output"
 if (Test-Path $Output) { Remove-Item $Output -Recurse -Force }
 New-Item -ItemType Directory -Path $Output | Out-Null
 
+Write-Host "Building project in Release first..."
+dotnet build $Project -c $Configuration -p:GeneratePackageOnBuild=false
+
 # Create a temporary pack output folder
 $tempPack = Join-Path $env:TEMP "pack-temp-$(Get-Random)"
 Write-Host "Temp pack folder: $tempPack"
@@ -21,8 +24,7 @@ if (Test-Path $tempPack) { Remove-Item $tempPack -Recurse -Force }
 New-Item -ItemType Directory -Path $tempPack | Out-Null
 
 Write-Host "Packing project (output: $tempPack)..."
-$packCmd = "dotnet pack `"$Project`" -c $Configuration -o `"$tempPack`""
-Invoke-Expression $packCmd
+dotnet pack $Project -c $Configuration -o $tempPack --no-build
 if ($LASTEXITCODE -ne 0) { Write-Error "dotnet pack failed"; Remove-Item $tempPack -Recurse -Force; Exit $LASTEXITCODE }
 
 # Find produced nupkg
@@ -47,7 +49,14 @@ Write-Host "Detected PackageId=$packageId  Version=$version"
 $nugetCmd = Get-Command nuget -ErrorAction SilentlyContinue 
 if (-not $nugetCmd) {   
     Write-Host 'nuget not found � installing via winget (may prompt for elevation)...'
-    Invoke-Expression "winget install Microsoft.NuGet"
+    winget install Microsoft.NuGet
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Nuget installation failed..."
+    }
+    # Reload PATH for this PowerShell process
+    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                [Environment]::GetEnvironmentVariable("Path", "User")
 }
 
 $exportCmd = "nuget add $nupkg -Source $Output"
