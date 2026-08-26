@@ -28,15 +28,9 @@ public class DemoClass : IDemoClass // Generics, including constraints are allow
     /// <summary>
     /// Method Documentation will be copied
     /// </summary>
-    public string AMethod(string x, string y) // included
-    {
-        return BMethod(x, y);
-    }
+    public string AMethod(string x, string y) => BMethod(x, y); // included
 
-    private string BMethod(string x, string y) // ignored because not public
-    {
-        return x + y;
-    }
+    private string BMethod(string x, string y) => x + y; // ignored because not public
 
     /// <summary>
     /// CMethod allows operations with multiple generic type parameters and string inputs.
@@ -53,22 +47,13 @@ public class DemoClass : IDemoClass // Generics, including constraints are allow
         where T : class
         where T1 : struct
         where T3 : DemoClass
-        where T4 : IDemoClass
-    {
-        return "Ok";
-    }
+        where T4 : IDemoClass => "Ok";
 
-    public Task<string> ASync(string x, string y)
-    {
-        return Task.FromResult("");
-    }
+    public Task<string> ASync(string x, string y) => Task.FromResult("");
 
     public static string StaticProperty => "abc"; // static property, ignored
 
-    public static string StaticMethod() // static method, ignored
-    {
-        return "static" + DateTime.Now;
-    }
+    public static string StaticMethod() => "static" + DateTime.Now; // static method, ignored
 
     /// <summary>
     /// event Documentation will be copied

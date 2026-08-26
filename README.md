@@ -1,9 +1,9 @@
 # Dotnet Automatic Interface
 
 A C# Source Generator to automatically create Interfaces from classes.
-Inheritor to https://github.com/codecentric/net_automatic_interface
+Inheritor to <https://github.com/codecentric/net_automatic_interface>
 
-[![NuGet version (sourcedepend)](https://img.shields.io/nuget/v/AutomaticInterface?color=blue)](https://www.nuget.org/packages/AutomaticInterface/)
+[![NuGet version (sourcedepend)](https://img.shields.io/nuget/v/DotnetAutomaticInterface?color=blue)](https://www.nuget.org/packages/DotnetAutomaticInterface/)
 
 ## What does it do?
 
@@ -15,79 +15,68 @@ This interface will be generated on each subsequent build, eliminating the frict
 ## Example
 
 ```c#
-using DotnetAutomaticInterface;
 using System;
+using System.Threading.Tasks;
+using DotnetAutomaticInterface;
 
-namespace AutomaticInterfaceExample
+namespace AutomaticInterfaceExample;
+
+/// <summary>
+/// Class Documentation will be copied
+/// </summary>
+[GenerateAutomaticInterface]
+public class DemoClass: IDemoClass // Your interface will get the Name I+classname, here IDemoclass. 
+// Generics, including constraints are allowed, too. E.g. MyClass<T> where T: class
 {
     /// <summary>
-    /// Class Documentation will be copied
+    /// Property Documentation will be copied
     /// </summary>
-    [GenerateAutomaticInterface]
-    class DemoClass: IDemoClass // Your interface will get the Name I+classname, here IDemoclass. 
-    // Generics, including constraints are allowed, too. E.g. MyClass<T> where T: class
+    public string Hello { get; set; } // included, get and set are copied to the interface when public
+
+    public string OnlyGet { get; } // included, get and set are copied to the interface when public
+
+    [IgnoreAutomaticInterface]
+    public string? AnotherGet { get; } // ignored with help of attribute
+
+    /// <summary>
+    /// Method Documentation will be copied
+    /// </summary>
+    public string AMethod(string x, string y) => BMethod(x, y); // included
+
+    private string BMethod(string x, string y) => x + y; // ignored because not public
+
+    public string CMethod<T, T1, T2, T3, T4>(string? x, string y) // included
+        where T : class
+        where T1 : struct
+        where T3 : DemoClass
+        where T4 : IDemoClass => "Ok";
+
+    public Task<string> ASync(string x, string y) => Task.FromResult("");
+
+    public static string StaticProperty => "abc"; // static property, ignored
+
+    public static string StaticMethod() => "static" + DateTime.Now; // static method, ignored
+
+    /// <summary>
+    /// event Documentation will be copied
+    /// </summary>
+    public event EventHandler ShapeChanged;  // included
+
+    private event EventHandler ShapeChanged2; // ignored because not public
+
+    public event EventHandler? ShapeChangedNullable; // included
+
+    public event EventHandler<string?> ShapeChangedNullable2; // included
+
+    private readonly int[] arr = new int[100];
+
+    public int this[int index] // currently ignored
     {
-        /// <summary>
-        /// Property Documentation will be copied
-        /// </summary>
-        public string Hello { get; set; } // included, get and set are copied to the interface when public
-
-        public string OnlyGet { get; } // included, get and set are copied to the interface when public
-
-        [IgnoreAutomaticInterface]
-        public string? AnotherGet { get; } // ignored with help of attribute
-
-        /// <summary>
-        /// Method Documentation will be copied
-        /// </summary>
-        public string AMethod(string x, string y) // included
-        {
-            return BMethod(x, y);
-        }
-
-        private string BMethod(string x, string y) // ignored because not public
-        {
-            return x + y;
-        }
-
-        public string CMethod<T, T1, T2, T3, T4>(string? x, string y) // included
-            where T : class
-            where T1 : struct
-            where T3 : DemoClass
-            where T4 : IDemoClass
-        {
-            return "Ok";
-        }
-
-        public Task<string> ASync(string x, string y)
-        {
-            return Task.FromResult("");
-        }
-
-        public static string StaticProperty => "abc"; // static property, ignored
-
-        public static string StaticMethod() // static method, ignored
-        {
-            return "static" + DateTime.Now;
-        }
-
-        /// <summary>
-        /// event Documentation will be copied
-        /// </summary>
-
-        public event EventHandler ShapeChanged;  // included
-
-        private event EventHandler ShapeChanged2; // ignored because not public
-
-        private readonly int[] arr = new int[100];
-
-        public int this[int index] // currently ignored
-        {
-            get => arr[index];
-            set => arr[index] = value;
-        }
+        get => arr[index];
+        set => arr[index] = value;
     }
 }
+
 ```
 
 This will create this interface:
@@ -101,33 +90,33 @@ This will create this interface:
 namespace AutomaticInterfaceExample
 {
     /// <summary>
-    /// Class documentation will be copied
+    /// Class Documentation will be copied
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("DotnetAutomaticInterface", "")]
     public partial interface IDemoClass
     {
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.Hello" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.DemoClass.Hello" />
         string Hello { get; set; }
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.OnlyGet" />
+        /// <inheritdoc cref="P:AutomaticInterfaceExample.DemoClass.OnlyGet" />
         string OnlyGet { get; }
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.AMethod(string, string)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.AMethod(System.String,System.String)~System.String" />
         string AMethod(string x, string y);
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.CMethod{T, T1, T2, T3, T4}(string?, string)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.CMethod``5(System.String,System.String)~System.String" />
         string CMethod<T, T1, T2, T3, T4>(string? x, string y) where T : class where T1 : struct where T3 : global::AutomaticInterfaceExample.DemoClass where T4 : IDemoClass;
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ASync(string, string)" />
+        /// <inheritdoc cref="M:AutomaticInterfaceExample.DemoClass.ASync(System.String,System.String)~System.Threading.Tasks.Task{System.String}" />
         global::System.Threading.Tasks.Task<string> ASync(string x, string y);
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ShapeChanged" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.ShapeChanged" />
         event global::System.EventHandler ShapeChanged;
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ShapeChangedNullable" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.ShapeChangedNullable" />
         event global::System.EventHandler? ShapeChangedNullable;
         
-        /// <inheritdoc cref="AutomaticInterfaceExample.DemoClass.ShapeChangedNullable2" />
+        /// <inheritdoc cref="E:AutomaticInterfaceExample.DemoClass.ShapeChangedNullable2" />
         event global::System.EventHandler<string?> ShapeChangedNullable2;
         
     }
@@ -137,8 +126,8 @@ namespace AutomaticInterfaceExample
 
 ## How to use it?
 
-1. Install the nuget: `dotnet add package AutomaticInterface`.
-2. Add `using AutomaticInterface;` or (Pro-tip) add `global using AutomaticInterface;` to your GlobalUsings.
+1. Install the nuget: `dotnet add package DotnetAutomaticInterface`.
+2. Add `using DotnetAutomaticInterface;` or (Pro-tip) add `global using DotnetAutomaticInterface;` to your GlobalUsings.
 3. Tag your class with the `[GenerateAutomaticInterface]` attribute.
 4. The Interface should now be available.
 
@@ -148,7 +137,7 @@ To validate or use the interface:
 2. 'Go to definition' to see the generated interface.
 3. Build Solution to compile the interface.
 
-Any errors? Ping me at: christiian.sauer@codecentric.de
+Any errors? Ping me at: <christiian.sauer@codecentric.de>
 
 ## Troubleshooting
 
@@ -162,7 +151,7 @@ Alternatively, the Source Generator generates a log file - look out for a "logs"
 
 ### I have an error
 
-Please create an issue and a minimally reproducible test for the problem. 
+Please create an issue and a minimally reproducible test for the problem.
 
 PRs are welcome!
 Please make sure that you run [CSharpier](https://csharpier.com/) on the code for formatting.
@@ -199,7 +188,7 @@ Forked from [AutomaticInterface](https://github.com/codecentric/net_automatic_in
 
 ### 5.2.6
 
-- Fix wrong documenation on interface for this library 
+- Fix wrong documenation on interface for this library
 - Fix handling of parameters with default null. Thanks paramamue!
 
 ### 5.2.5
@@ -283,10 +272,12 @@ Forked from [AutomaticInterface](https://github.com/codecentric/net_automatic_in
 - You can remove the manually created `GenerateAutomaticInterfaceAttribute`, as it is generated automatically now. Thanks crwsolutions!
 - You can remove the manually created `IgnoreAutomaticInterfaceAttribute`, as it is generated automatically now. Thanks crwsolutions!
 
-### 2.50.
+### 2.5.0
+
 - Now can ignore class members with [IgnoreAutomaticInterface] attribute. Thanks avtc!
 
-### 2.40.
+### 2.4.0
+
 - Now prevents duplicates when overriding or shadowing methods (`new void DoSomething()`). Thanks simonmckenzie!
 
 ### 2.3.0
@@ -314,13 +305,13 @@ Forked from [AutomaticInterface](https://github.com/codecentric/net_automatic_in
 
 ### 1.6.1
 
- - Minor bug fixes
+- Minor bug fixes
 
 ### 1.5.0
 
- - Add support nullable context
+- Add support nullable context
 
 ### 1.4.0
 
- - Add support for overloaded methods.
- - Add support for optional parameters in method `void test(string x = null)` should now work.
+- Add support for overloaded methods.
+- Add support for optional parameters in method `void test(string x = null)` should now work.
